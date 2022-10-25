@@ -1,0 +1,189 @@
+.results {
+    overflow-y: auto;
+    display: grid;
+    gap: 2em;
+}
+
+
+.result {
+    display: grid;
+    background-color: var(--main-bg);
+    padding: 0.5em;
+}
+
+.result h2 {
+    z-index: 20;
+    width: fit-content;
+    text-align: center;
+    padding: 0.125em 0.5em;
+    margin: 0 auto;
+    margin-bottom: -0.5em;
+    background-color: var(--secondary-bg);
+    line-height: 1;
+    align-self: center;
+    font-size: xx-large;
+    border-radius: 10px;
+    border: 1px solid var(--main-border);
+}
+
+
+.resultItem:first-child {
+    border-radius: 10px 10px 0 0;
+    padding-top: 1.5em;
+}
+
+.resultItem:last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+.resultItem:only-child {
+    border-radius: 10px;
+}
+
+.resultItem {
+    border: 1px solid var(--main-border);
+    background-color: var(--secondary-bg);
+    padding: 0.5em;
+    display: grid;
+    grid-template-rows: 1.5em;
+    isolation: isolate;
+}
+
+/* .resultItem>* {
+    border-bottom: solid 1px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(90deg, transparent, black, transparent);
+} */
+
+.resultItem h3 {
+    font-size: large;
+    padding: 0.75em 0;
+    text-align: center;
+    background-color: inherit;
+}
+
+.resultItem .logo {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.resultItem button {
+    text-align: center;
+    padding: 0.25em 0.5em;
+    justify-self: center;
+    background-color: var(--main-accent-bg);
+    color: var(--main-accent-fg);
+    border-radius: 20px;
+    border: 1px solid var(--main-accent-fg);
+}
+
+.resultItem .moreInfo[aria-expanded="false"] {
+    display: none;
+}
+
+.resultItem .moreInfo[aria-expanded="true"] {
+    display: grid;
+}
+
+.resultItem .moreInfo {
+    grid-template-areas:
+        "explanation explanation explanation"
+        "lastUpdated fetchtype source";
+    gap: 0.5em;
+    padding-bottom: 0.5em;
+    grid-template-columns: 2fr 1fr 2fr;
+}
+
+.resultItem .explanation {
+    grid-area: explanation;
+    position: relative;
+    /* padding-bottom: 0.25em; */
+    padding: 0.75em 0.25em;
+}
+
+.missingExplanation {
+    --visual-indicator-size: 1em;
+    font-style: italic;
+    position: relative;
+    padding-left: calc(var(--visual-indicator-size) + 0.25em);
+}
+
+.missingExplanation::before {
+    content: "";
+    position: absolute;
+    width: var(--visual-indicator-size);
+    height: var(--visual-indicator-size);
+    left: 0;
+    background-image: url(./../resources/warning.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.resultItem .explanation::after {
+    content: "";
+    position: absolute;
+    bottom: -0.25em;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 90%;
+    background-image: radial-gradient(var(--main-border) 25%, transparent);
+}
+
+.resultItem .lastUpdated {
+    grid-area: lastUpdated;
+    text-align: center;
+    font-size: small;
+    position: relative;
+}
+
+.resultItem .source {
+    grid-area: source;
+    text-align: center;
+    font-size: small;
+}
+
+.resultItem .lastUpdated::before {
+    content: "uppdaterades: "
+}
+
+.resultItem .fetchtype {
+    --fetchtype-indicator-size: 1em;
+    position: relative;
+    grid-area: fetchtype;
+    width: var(--fetchtype-indicator-size);
+    margin: 0 auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.resultItem .fetchtype[data-fetchtype="0"] {
+    background-image: url(./../resources/manual.svg);
+}
+
+.resultItem .fetchtype[data-fetchtype="1"] {
+    background-image: url(./../resources/automatic.svg);
+}
+
+.resultItem .fetchtype:hover::after {
+    position: absolute;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--main-border);
+    border-radius: 10px 10px 10px 0;
+    bottom: 100%;
+    left: calc(var(--fetchtype-indicator-size) / 2);
+    padding: 0.5em;
+}
+
+.resultItem .fetchtype[data-fetchtype="0"]:hover::after {
+    content: "Informationen har skrivits in manuellt";
+}
+
+.resultItem .fetchtype[data-fetchtype="1"]:hover::after {
+    content: "Informationen har hämtats automatiskt";
+}

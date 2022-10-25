@@ -1,0 +1,98 @@
+.searchbar {
+    --search-icon-size: 2em;
+
+    position: relative;
+    display: grid;
+    grid-template-areas:
+        "label ."
+        "input submit";
+    grid-template-columns: auto var(--search-icon-size);
+    grid-template-rows: 1fr 2fr;
+    padding: 1em 0.5em;
+}
+
+.searchbar::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: radial-gradient(#6666ff 40%, transparent);
+}
+
+.searchbar:focus-within label,
+.searchbar:focus-within input {
+    outline: 2px solid orange;
+    outline-offset: -2px;
+}
+
+
+.searchbar label {
+    grid-area: label;
+    width: fit-content;
+    position: relative;
+    padding: 0.25em 0.5em;
+    background-color: var(--secondary-bg);
+    border-radius: 10px 10px 0 0;
+    border: 2px solid black;
+    border-bottom: none;
+}
+
+.searchbar label::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    height: 6px;
+    width: calc(100% - 2px);
+    border: 2px solid var(--secondary-bg);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: inherit;
+}
+
+.searchbar input {
+    grid-area: input;
+    grid-column: 1/3;
+    padding: 0.5em;
+    padding-right: var(--search-icon-size);
+    font-size: larger;
+    border-radius: 0 10px 10px 10px;
+    background-color: var(--secondary-bg);
+    border-color: var(--main-border);
+}
+
+.searchbar button {
+    grid-area: submit;
+    background-color: transparent;
+    background-image: url(./../resources/search.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    border: none;
+}
+
+.searchbar[data-loading="true"] button {
+    background-image: none;
+    pointer-events: none;
+}
+
+.searchbar[data-loading="true"]::after {
+    content: "";
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    grid-area: submit;
+    align-self: center;
+    border-radius: 100vh;
+    background-image: linear-gradient(transparent 25%, var(--main-fg));
+    animation: spin 500ms linear infinite;
+}
+
+@keyframes spin {
+    to {
+        rotate: 360deg;
+    }
+}
